@@ -32,11 +32,15 @@ public class MenuItemService {
         if (menuItemRepository.existsByItemCode(request.itemCode().trim())) {
             throw new IllegalArgumentException("Item code '" + request.itemCode() + "' is already in use");
         }
+        if (request.category() == null) {
+            throw new IllegalArgumentException("Category is required");
+        }
 
         MenuItem item = new MenuItem();
         item.setItemCode(request.itemCode().trim());
         item.setName(request.name());
         item.setType(request.type());
+        item.setCategory(request.category());
         item.setIsActive(true);
 
         List<MenuItemVariant> variants = request.variants().stream().map(v -> {
@@ -55,6 +59,7 @@ public class MenuItemService {
         List<MenuItemVariantResponse> variantResponses = item.getVariants().stream()
             .map(v -> new MenuItemVariantResponse(v.getId(), v.getVariantName(), v.getPrice()))
             .toList();
-        return new MenuItemResponse(item.getId(), item.getItemCode(), item.getName(), item.getType(), variantResponses);
+        return new MenuItemResponse(item.getId(), item.getItemCode(), item.getName(),
+                 item.getType(), item.getCategory(), variantResponses);
     }
 }

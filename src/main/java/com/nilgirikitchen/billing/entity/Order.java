@@ -59,7 +59,8 @@ public class Order {
     private LocalDateTime orderDate;
 
     @Enumerated(EnumType.STRING)
-    private OrderStatus status = OrderStatus.PAID;
+    @Column(name = "status", nullable = false)
+    private OrderStatus orderStatus = OrderStatus.ACTIVE;
 
     @Column(name = "is_delivered")
     private Boolean isDelivered = false;

@@ -14,6 +14,7 @@ import com.nilgirikitchen.billing.service.OrderService;
 import com.nilgirikitchen.billing.dto.CreateOrderRequest;
 import com.nilgirikitchen.billing.dto.OrderResponse;
 import com.nilgirikitchen.billing.dto.CollectPaymentRequest;
+import com.nilgirikitchen.billing.dto.AddItemsRequest;
 import java.util.List;
 
 @CrossOrigin(origins = "*")
@@ -42,5 +43,15 @@ public class OrderController {
     @PatchMapping("/{billNo}/collect-payment")
     public OrderResponse collectPayment(@PathVariable String billNo, @RequestBody CollectPaymentRequest request) {
         return orderService.collectPayment(billNo, request);
+    }
+
+    @PatchMapping("/{billNo}/cancel")
+    public OrderResponse cancelOrder(@PathVariable String billNo) {
+        return orderService.cancelOrder(billNo);
+    }
+
+    @PostMapping("/{billNo}/items")
+    public OrderResponse addItems(@PathVariable String billNo, @RequestBody AddItemsRequest request) {
+        return orderService.addItemsToOrder(billNo, request.items());
     }
 }

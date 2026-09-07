@@ -22,6 +22,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import com.nilgirikitchen.billing.enums.FoodType;
+import com.nilgirikitchen.billing.enums.MenuCategory;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -40,6 +41,11 @@ public class MenuItem {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private FoodType type; // VEG, NONVEG
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "category", nullable = false)
+    private MenuCategory category;
+
 
     @Column(name = "is_active")
     private Boolean isActive = true;
